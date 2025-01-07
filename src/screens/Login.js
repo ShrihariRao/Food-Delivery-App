@@ -26,13 +26,15 @@ export default function Login() {
     if (!json.success) {
       alert("Enter valid credentials");
     }
-    
-    if (json.success){
+
+    if (json.success) {
+      localStorage.setItem("userEmail", credentials.email);
       localStorage.setItem("authToken", json.authToken);
-      console.log(localStorage.getItem("authToken"));
+      // console.log(localStorage.getItem("authToken"));
+      // console.log(localStorage.getItem("userEmail"));
       navigate("/");
     }
-    
+
   };
 
   const onChange = (event) => {
