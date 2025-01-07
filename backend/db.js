@@ -23,8 +23,8 @@ async function mongoDB() {
 
     // Fetch collections with error checking
     const [fetched_data, foodCategory] = await Promise.all([
-      fetchCollection("food_items"),
-      fetchCollection("food_category")
+      fetchCollection("food_Items"),
+      fetchCollection("food_Categories")
     ]);
 
     // Assign the fetched data to global variables

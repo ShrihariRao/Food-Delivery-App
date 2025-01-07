@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge'
 import Modal from "../Modal";
 import Cart from "../screens/Cart";
+import { useCart } from "./ContextReducer";
 export default function Navbar({ search, setSearch }) {
 
   const [cartView, setcartView] = useState(false)
@@ -10,9 +11,12 @@ export default function Navbar({ search, setSearch }) {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    // localStorage.removeItem("userEmail");
     navigate("/login")
   }
   
+  let data = useCart()
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-success">
@@ -41,7 +45,7 @@ export default function Navbar({ search, setSearch }) {
                 <Link
                   className="nav-link fw-bold active fs-5"
                   aria-current="page"
-                  to="#"
+                  to="/"
                 >
                   Home
                 </Link>
@@ -51,7 +55,7 @@ export default function Navbar({ search, setSearch }) {
                   <Link
                     className="nav-link active fs-5"
                     aria-current="page"
-                    to="/"
+                    to="/myOrder"
                   >
                     My orders
                   </Link>
@@ -82,7 +86,7 @@ export default function Navbar({ search, setSearch }) {
 
               <div className="btn bg-white text-success mx-2" onClick={() => {setcartView(true)}}>
                 My Cart {"  "}
-                <Badge pill bg="danger"> 2 </Badge>
+                <Badge pill bg="danger"> {data.length} </Badge>
               </div>
               
               {cartView ? <Modal onClose={() => setcartView(false)}><Cart /></Modal>: null}
@@ -102,9 +106,6 @@ export default function Navbar({ search, setSearch }) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)} // Use the setSearch prop
               />
-              <button className="btn btn-dark text-white" type="submit">
-                Search
-              </button>
             </form>
           </div>
         </div>
